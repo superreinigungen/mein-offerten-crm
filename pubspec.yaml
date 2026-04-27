@@ -1,0 +1,55 @@
+name: clean_quote_pro
+description: CLEVO Pro - Professionelles CRM & Offerten-Management für Reinigungsunternehmen
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Firebase Integration (LOCKED versions)
+  firebase_core: 3.6.0
+  cloud_firestore: 5.4.3
+  firebase_auth: 5.3.1
+  firebase_storage: 12.3.2
+  
+  # State Management
+  provider: 6.1.5+1
+  
+  # HTTP & Networking
+  http: 1.5.0
+  
+  # Local Storage
+  shared_preferences: 2.5.3
+  hive: 2.2.3
+  hive_flutter: 1.1.0
+  
+  # UI Components
+  cupertino_icons: ^1.0.8
+  intl: ^0.20.2
+  flutter_svg: ^2.1.0
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
+  
+  # Utilities
+  url_launcher: ^6.3.1
+  uuid: ^4.5.1
+  timeago: ^3.7.0
+  
+  # Icons
+  material_design_icons_flutter: ^7.0.7296
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/icons/

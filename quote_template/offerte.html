@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offerte {{OFFERTE_NR}} - SuperReinigungen.ch</title>
+    
+    <!-- Tracking Pixel - Wird beim Laden der Seite ausgelöst -->
+    <img src="{{TRACKING_PIXEL_URL}}" width="1" height="1" style="display:none" alt="" id="tracking-pixel" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Header - SuperReinigungen Design */
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+            color: white;
+            padding: 30px 40px;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span {
+            color: #64b5f6;
+        }
+        
+        .contact-info {
+            text-align: right;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .hotline {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        /* Offerte Header Info */
+        .offerte-header {
+            background: #e3f2fd;
+            padding: 25px 40px;
+            border-bottom: 3px solid #1976d2;
+        }
+        
+        .offerte-header h1 {
+            color: #1a237e;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .offerte-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .meta-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .meta-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a237e;
+        }
+        
+        /* Main Content */
+        .content {
+            padding: 40px;
+        }
+        
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .intro-text {
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        /* Section Styling */
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a237e;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #1976d2;
+            border-radius: 2px;
+        }
+        
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .detail-row {
+            display: flex;
+            padding: 10px 15px;
+            background: #fafafa;
+            border-radius: 6px;
+        }
+        
+        .detail-label {
+            width: 140px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .detail-value {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        /* Leistungsumfang */
+        .services-list {
+            list-style: none;
+        }
+        
+        .services-list li {
+            padding: 10px 15px;
+            background: #fafafa;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .services-list li::before {
+            content: '✓';
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        /* Verschmutzungsgrad */
+        .dirt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .dirt-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: #fafafa;
+            border-radius: 6px;
+        }
+        
+        .dirt-level {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .dirt-level.leicht {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .dirt-level.mittel {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .dirt-level.stark {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        /* Preis Box - Hervorgehoben wie in deiner Vorlage */
+        .price-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+            border: 2px solid #4caf50;
+        }
+        
+        .price-label {
+            font-size: 14px;
+            color: #2e7d32;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .price-amount {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1b5e20;
+        }
+        
+        .price-currency {
+            font-size: 24px;
+        }
+        
+        .price-info {
+            font-size: 13px;
+            color: #388e3c;
+            margin-top: 10px;
+        }
+        
+        .valid-until {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(46, 125, 50, 0.3);
+            font-size: 13px;
+            color: #666;
+        }
+        
+        /* Custom Message */
+        .custom-message {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .custom-message p {
+            color: #1565c0;
+            font-style: italic;
+        }
+        
+        /* Konditionen */
+        .conditions {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .conditions h4 {
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+        
+        .conditions ul {
+            list-style: disc;
+            margin-left: 20px;
+            color: #555;
+        }
+        
+        .conditions li {
+            margin-bottom: 5px;
+        }
+        
+        /* Action Buttons Section */
+        .action-section {
+            background: #1a237e;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .action-title {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .btn-accept {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .btn-accept:hover {
+            background: #43a047;
+        }
+        
+        .btn-reject {
+            background: #f44336;
+            color: white;
+        }
+        
+        .btn-reject:hover {
+            background: #e53935;
+        }
+        
+        .btn-thinking {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .btn-thinking:hover {
+            background: #fb8c00;
+        }
+        
+        .action-note {
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            margin-top: 20px;
+        }
+        
+        /* AGB Section - Vollständige AGB aus deinem PDF */
+        .agb-section {
+            padding: 40px;
+            background: #fafafa;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .agb-toggle {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #1a237e;
+            width: 100%;
+        }
+        
+        .agb-toggle:hover {
+            background: #f5f5f5;
+        }
+        
+        .agb-content {
+            display: none;
+            margin-top: 20px;
+            padding: 25px;
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.8;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .agb-content.show {
+            display: block;
+        }
+        
+        .agb-content h4 {
+            color: #1a237e;
+            margin: 20px 0 10px 0;
+            font-size: 14px;
+        }
+        
+        .agb-content h4:first-child {
+            margin-top: 0;
+        }
+        
+        .agb-content p {
+            margin-bottom: 10px;
+        }
+        
+        .agb-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .agb-content li {
+            margin-bottom: 5px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1a237e;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .footer-contact {
+            margin-bottom: 15px;
+        }
+        
+        .footer-contact a {
+            color: #90caf9;
+            text-decoration: none;
+        }
+        
+        .footer-address {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+        
+        .signature {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .signature-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .signature-title {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+        
+        /* Response Confirmation */
+        .response-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .response-modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 500px;
+            margin: 20px;
+        }
+        
+        .modal-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a237e;
+            margin-bottom: 15px;
+        }
+        
+        .modal-text {
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .modal-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            background: #1976d2;
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header, .content, .action-section, .agb-section, .footer {
+                padding: 20px;
+            }
+            
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .contact-info {
+                text-align: left;
+            }
+            
+            .offerte-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-amount {
+                font-size: 36px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .action-section, .agb-toggle, .response-modal {
+                display: none;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .agb-content {
+                display: block !important;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <div class="logo">Super<span>Reinigungen</span>.ch</div>
+                <div class="contact-info">
+                    <div class="hotline">Hotline: +41 44 544 20 04</div>
+                    <div><a href="mailto:info@superreinigungen.ch">info@superreinigungen.ch</a></div>
+                    <div><a href="https://www.superreinigungen.ch">www.superreinigungen.ch</a></div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Offerte Header -->
+        <div class="offerte-header">
+            <h1>Offerte für Umzugsreinigung - {{OFFERTE_NR}}</h1>
+            <div class="offerte-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Erstellt am</span>
+                    <span class="meta-value">{{DATUM}}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Gültig bis</span>
+                    <span class="meta-value">{{GUELTIG_BIS}}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Kunde</span>
+                    <span class="meta-value">{{KUNDE_NAME}}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Reinigungstermin</span>
+                    <span class="meta-value">{{REINIGUNGSTERMIN}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <main class="content">
+            <p class="greeting">Guten Tag <strong>{{KUNDE_VORNAME}}</strong>,</p>
+            <p class="intro-text">
+                Vielen Dank für Ihre Anfrage. Wir freuen uns, Ihnen folgendes Angebot für die 
+                Umzugsreinigung mit Abnahmegarantie unterbreiten zu können.
+            </p>
+            
+            <!-- Objekt Details -->
+            <div class="section">
+                <h3 class="section-title">Objekt-Informationen</h3>
+                <div class="details-grid">
+                    <div class="detail-row">
+                        <span class="detail-label">Adresse</span>
+                        <span class="detail-value">{{OBJEKT_ADRESSE}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Objekttyp</span>
+                        <span class="detail-value">{{OBJEKT_TYP}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Zimmerzahl</span>
+                        <span class="detail-value">{{ZIMMER}} Zimmer</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Fläche</span>
+                        <span class="detail-value">{{FLAECHE}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Stockwerk</span>
+                        <span class="detail-value">{{STOCKWERK}}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Abnahmetermin</span>
+                        <span class="detail-value">{{ABNAHMETERMIN}}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Leistungsumfang -->
+            <div class="section">
+                <h3 class="section-title">Leistungsumfang</h3>
+                <ul class="services-list">
+                    <li>Komplette Endreinigung der Wohnung mit Abnahmegarantie</li>
+                    <li>Küche inkl. Geräte (Backofen, Kühlschrank, Geschirrspüler)</li>
+                    <li>Badezimmer/WC inkl. Entkalkung</li>
+                    <li>Alle Räume inkl. Böden, Fenster, Rahmen</li>
+                    <li>Türen, Schränke, Steckdosen, Lichtschalter</li>
+                    <li>Balkon/Terrasse (falls vorhanden)</li>
+                    {{ZUSATZLEISTUNGEN_HTML}}
+                </ul>
+            </div>
+            
+            <!-- Verschmutzungsgrad -->
+            <div class="section">
+                <h3 class="section-title">Verschmutzungsgrad</h3>
+                <div class="dirt-grid">
+                    <div class="dirt-item">
+                        <span>Küche allgemein</span>
+                        <span class="dirt-level {{DIRT_KITCHEN_CLASS}}">{{DIRT_KITCHEN}}</span>
+                    </div>
+                    <div class="dirt-item">
+                        <span>Küchengeräte</span>
+                        <span class="dirt-level {{DIRT_APPLIANCES_CLASS}}">{{DIRT_APPLIANCES}}</span>
+                    </div>
+                    <div class="dirt-item">
+                        <span>Bad allgemein</span>
+                        <span class="dirt-level {{DIRT_BATHROOM_CLASS}}">{{DIRT_BATHROOM}}</span>
+                    </div>
+                    <div class="dirt-item">
+                        <span>Kalkrückstände</span>
+                        <span class="dirt-level {{DIRT_LIMESCALE_CLASS}}">{{DIRT_LIMESCALE}}</span>
+                    </div>
+                    <div class="dirt-item">
+                        <span>Fenster/Rahmen</span>
+                        <span class="dirt-level {{DIRT_WINDOWS_CLASS}}">{{DIRT_WINDOWS}}</span>
+                    </div>
+                    <div class="dirt-item">
+                        <span>Stören/Rollläden</span>
+                        <span class="dirt-level {{DIRT_BLINDS_CLASS}}">{{DIRT_BLINDS}}</span>
+                    </div>
+                    <div class="dirt-item">
+                        <span>Böden allgemein</span>
+                        <span class="dirt-level {{DIRT_FLOORS_CLASS}}">{{DIRT_FLOORS}}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Custom Message (falls vorhanden) -->
+            <div class="custom-message" id="custom-message" style="display: {{CUSTOM_MESSAGE_DISPLAY}};">
+                <p>{{CUSTOM_MESSAGE}}</p>
+            </div>
+            
+            <!-- Preis Box -->
+            <div class="price-box">
+                <div class="price-label">Ihr Pauschalpreis</div>
+                <div class="price-amount"><span class="price-currency">CHF</span> {{PREIS}}</div>
+                <div class="price-info">Inkl. MwSt. • Keine versteckten Kosten • Mit Abnahmegarantie</div>
+                <div class="valid-until">
+                    Dieses Angebot ist gültig bis: <strong>{{GUELTIG_BIS}}</strong>
+                </div>
+            </div>
+            
+            <!-- Konditionen -->
+            <div class="conditions">
+                <h4>Konditionen</h4>
+                <ul>
+                    <li>Der Preis versteht sich als Pauschalpreis, inkl. MwSt.</li>
+                    <li>Bezahlung erfolgt auf Rechnung, zahlbar innert 7 Tagen oder bar bei Abgabe.</li>
+                    <li>Kostenlose Nachreinigung bei berechtigten Beanstandungen (Abnahmegarantie).</li>
+                    <li>Die Wohnung muss am Reinigungstag leer und besenrein sein.</li>
+                </ul>
+            </div>
+        </main>
+        
+        <!-- Action Buttons -->
+        <div class="action-section">
+            <h2 class="action-title">Wie möchten Sie fortfahren?</h2>
+            <div class="action-buttons">
+                <a href="{{ACCEPT_URL}}" class="btn btn-accept" onclick="trackAction('accept')">
+                    ✓ Offerte annehmen
+                </a>
+                <a href="{{THINKING_URL}}" class="btn btn-thinking" onclick="trackAction('thinking')">
+                    🕐 Ich überlege noch
+                </a>
+                <a href="{{REJECT_URL}}" class="btn btn-reject" onclick="trackAction('reject')">
+                    ✗ Offerte ablehnen
+                </a>
+            </div>
+            <p class="action-note">
+                Bei Fragen stehen wir Ihnen jederzeit gerne zur Verfügung: +41 44 544 20 04
+            </p>
+        </div>
+        
+        <!-- AGB Section - Vollständige AGB gemäss deinem PDF -->
+        <div class="agb-section">
+            <button class="agb-toggle" onclick="toggleAGB()">
+                <span>Allgemeine Geschäftsbedingungen (AGB) - Umzugsreinigung mit Abnahmegarantie</span>
+                <span id="agb-arrow">▼</span>
+            </button>
+            <div class="agb-content" id="agb-content">
+                <h4>§ 1 Geltung</h4>
+                <p>Folgende allgemeine Geschäftsbedingungen (AGB) gelten für alle Reinigungsverträge und Leistungen zwischen SuperReinigungen.ch als Auftragnehmer und Ihren Kunden als Auftraggeber. Es gilt die jeweils gültige Fassung der allgemeinen Geschäftsbedingungen.</p>
+                
+                <h4>§ 2 Ausführung</h4>
+                <p>Die auszuführende Endreinigung der leerstehenden Wohnung oder EFH werden vertraglich zwischen dem Kunden und SuperReinigungen.ch festgelegt. SuperReinigungen.ch verpflichtet sich für getreue und sorgfältige Ausführung der ihr übertragenen Reinigungsleistungen.</p>
+                
+                <h4>§ 3 Preise & Preisbasis</h4>
+                <p>Die Preise für die auszuführenden Reinigungsarbeiten werden vertraglich zwischen dem Kunden und SuperReinigungen.ch festgelegt. Es gelten die vereinbarten Preise in der Offerte/Vertrag.</p>
+                <p>SuperReinigungen.ch behält sich vor einen Reinigungsauftrag abzuweisen oder eine Zusatzpauschale zu offerieren, wenn beim Reinigungsbeginn andere bzw. schlechtere Verhältnisse (z.B. stark verdreckte Wohnung) angetroffen werden, als im Kundengespräch vor Vertragsabschluss beschrieben wurde.</p>
+                <p><strong>Preisbasis:</strong></p>
+                <ul>
+                    <li>Besenreine & geräumte Wohnung</li>
+                    <li>Standardwohnung (normale Höhe / keine Loftwohnungen)</li>
+                    <li>Keine Haustiere (insbesondere keine Hunde & Katzen)</li>
+                    <li>Nicht-Raucher-Haushalt</li>
+                    <li>Keine Überbauung, Teppich oder Vinyl auf Parkettboden</li>
+                </ul>
+                <p><strong>Folgende Faktoren führen zu einem Preisaufschlag:</strong></p>
+                <ul>
+                    <li>Haustiere (insbesondere Hunde & Katzen)</li>
+                    <li>Raucher-Haushalt</li>
+                    <li>Wenn durch Mieter Überbauungen erstellt wurden (Teppich/Vinyl/Laminat auf Parkett)</li>
+                    <li>Nicht besenrein geräumte Wohnung (Dinge/Möbel sind noch vorhanden)</li>
+                    <li>Loftwohnung oder sehr hohe Räume (über 2,80m)</li>
+                    <li>Schlechte Hygiene, Schmierfilm, Schimmel</li>
+                    <li>Stark verkalkte Armaturen (Hausmittel wie Zitrone & Co hinterlassen Schlieren)</li>
+                </ul>
+                
+                <h4>§ 4 Zahlungskonditionen</h4>
+                <p>Der Rechnungsbetrag ist, wenn vertraglich nichts Abweichendes vereinbart, gleichentags am Tage der Objektübergabe in bar zu entrichten oder innert 7 Tagen auf Rechnung.</p>
+                
+                <h4>§ 5 Versicherungsschutz / Haftung</h4>
+                <p>Alle Mitarbeiter sind AHV, IV, BU & NBU versichert & registriert bei der AHV/SVA.</p>
+                <p>Schadenersatzansprüche werden durch die Betriebshaftpflichtversicherung von SuperReinigungen.ch gedeckt (bis 5 Millionen Franken pro Schadenereignis).</p>
+                <p>Kalkeinwirkungen, Materialermüdung und deren Folgen sind ausgeschlossen.</p>
+                <p>Bei einer Oberflächenreparatur wie bspw. einem Lackkratzer der ab Werk vorhanden ist, liegt die Beweislast beim Kunden.</p>
+                <p>Schadenfälle sind SuperReinigungen.ch innert 5 Tagen schriftlich mitzuteilen.</p>
+                
+                <h4>§ 6 Schlüsselübergabe</h4>
+                <p>Der vereinbarte Schlüssel wird ab Vereinbarung für die Dauer des Reinigungsauftrages an SuperReinigungen.ch hinterlegt.</p>
+                
+                <h4>§ 7 Kündigungsfrist</h4>
+                <p>Eine Kündigung des Kunden bis zehn Arbeitstagen vor dem vereinbarten Reinigungstermin wird ohne Gebühren zur Kenntnis genommen.</p>
+                <p>Neun bis null Arbeitstage vor dem vereinbarten Reinigungstermin wird eine Bearbeitungsgebühr von 100 CHF in Rechnung gestellt.</p>
+                
+                <h4>§ 8 Vertragsbeendigung durch SuperReinigungen.ch</h4>
+                <p>SuperReinigungen.ch behält sich das Recht vor, einen Reinigungsauftrag ohne Bearbeitungsgebühr sofort bei Arbeitsbeginn zu kündigen und das Objekt zu verlassen, wenn:</p>
+                <ul>
+                    <li>Extreme hygienische Zustände (starke Verschmutzung / Urinflecken, Fäkalien / Verwesungsgeruch)</li>
+                    <li>Tierverwahlosung/Tieransammlungen (Insektenbefall, z.B. Kakerlaken, Käfer, Schaben)</li>
+                </ul>
+                
+                <h4>§ 9 Abgabegarantie</h4>
+                <p>Wird die Wohnungsreinigung von der Verwaltung bzw. Eigentümer bemängelt, verpflichtet sich SuperReinigungen.ch in jedem Falle zur kostenlosen Nachreinigung.</p>
+                <p>Dem Kunden steht es frei einen Obmann von «Allpura Reinigungsverband» auf seine Kosten beizuziehen. Ist die Reinigung fachgerecht & sauber ausgeführt wurden und wird dies vom Reinigungsverband nach einer Wohnungsbesichtigung bestätigt, wird der Verband dem Kunden die Kosten für den Beizug in Rechnung stellen.</p>
+                
+                <h4>§ 10 Gerichtsstand</h4>
+                <p>Der Gerichtsstand für sämtliche sich zwischen den Parteien aus dem Vertragsverhältnis ergebenen Streitigkeiten sind die Gerichte am Sitz des Auftragnehmers.</p>
+                <p>Auf die Rechtsbeziehungen zwischen den Parteien kommt ausschliesslich Schweizerisches Recht zur Anwendung.</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-contact">
+                Telefon: <a href="tel:+41445442004">+41 44 544 20 04</a> • 
+                E-Mail: <a href="mailto:info@superreinigungen.ch">info@superreinigungen.ch</a> • 
+                Web: <a href="https://www.superreinigungen.ch">www.superreinigungen.ch</a>
+            </div>
+            <div class="footer-address">
+                SuperReinigungen.ch - Reinigungen aller Art - Badenerstrasse 562 - CH-8048 Zürich
+            </div>
+            <div class="signature">
+                <div class="signature-name">Freundliche Grüsse, Petrit Xhaferi</div>
+                <div class="signature-title">Geschäftsführer / Ihr Ansprechpartner</div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Response Modals -->
+    <div class="response-modal" id="modal-accept">
+        <div class="modal-content">
+            <div class="modal-icon">✅</div>
+            <div class="modal-title">Vielen Dank!</div>
+            <div class="modal-text">
+                Sie haben die Offerte angenommen. Wir werden uns in Kürze bei Ihnen melden, 
+                um die Details zu besprechen.
+            </div>
+            <button class="modal-btn" onclick="closeModal('accept')">Verstanden</button>
+        </div>
+    </div>
+    
+    <div class="response-modal" id="modal-thinking">
+        <div class="modal-content">
+            <div class="modal-icon">🤔</div>
+            <div class="modal-title">Kein Problem!</div>
+            <div class="modal-text">
+                Nehmen Sie sich Zeit. Bei Fragen stehen wir Ihnen gerne zur Verfügung unter 
+                +41 44 544 20 04 oder per E-Mail.
+            </div>
+            <button class="modal-btn" onclick="closeModal('thinking')">Verstanden</button>
+        </div>
+    </div>
+    
+    <div class="response-modal" id="modal-reject">
+        <div class="modal-content">
+            <div class="modal-icon">😔</div>
+            <div class="modal-title">Schade!</div>
+            <div class="modal-text">
+                Wir bedauern Ihre Entscheidung. Falls Sie Ihre Meinung ändern oder Fragen haben, 
+                sind wir jederzeit für Sie da.
+            </div>
+            <button class="modal-btn" onclick="closeModal('reject')">Verstanden</button>
+        </div>
+    </div>
+    
+    <script>
+        // Tracking Variablen
+        let startTime = Date.now();
+        let scrollDepth = 0;
+        let maxScrollDepth = 0;
+        const quoteId = '{{QUOTE_ID}}';
+        
+        // Track page view on load
+        window.addEventListener('load', function() {
+            trackEvent('view', {
+                quote_id: quoteId,
+                timestamp: new Date().toISOString(),
+                user_agent: navigator.userAgent,
+                screen_width: screen.width,
+                screen_height: screen.height,
+                referrer: document.referrer
+            });
+        });
+        
+        // Track scroll depth
+        window.addEventListener('scroll', function() {
+            const scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+            scrollDepth = Math.round(scrolled);
+            if (scrollDepth > maxScrollDepth) {
+                maxScrollDepth = scrollDepth;
+            }
+        });
+        
+        // Track page view duration on close
+        window.addEventListener('beforeunload', function() {
+            const duration = Math.round((Date.now() - startTime) / 1000);
+            navigator.sendBeacon('{{TRACKING_DURATION_URL}}', JSON.stringify({
+                quote_id: quoteId,
+                duration: duration,
+                max_scroll_depth: maxScrollDepth,
+                timestamp: new Date().toISOString()
+            }));
+        });
+        
+        // Track button actions
+        function trackAction(action) {
+            const duration = Math.round((Date.now() - startTime) / 1000);
+            trackEvent('action', {
+                quote_id: quoteId,
+                action: action,
+                duration_before_action: duration,
+                max_scroll_depth: maxScrollDepth,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Show confirmation modal instead of navigating
+            event.preventDefault();
+            showModal(action);
+            
+            // Actually submit the action in background
+            fetch('{{TRACKING_ACTION_URL}}', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    quote_id: quoteId,
+                    action: action,
+                    timestamp: new Date().toISOString()
+                })
+            });
+        }
+        
+        // Generic tracking function
+        function trackEvent(eventType, data) {
+            fetch('{{TRACKING_EVENT_URL}}', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    event_type: eventType,
+                    ...data
+                })
+            }).catch(function(error) {
+                console.log('Tracking error:', error);
+            });
+        }
+        
+        // Toggle AGB
+        function toggleAGB() {
+            const content = document.getElementById('agb-content');
+            const arrow = document.getElementById('agb-arrow');
+            content.classList.toggle('show');
+            arrow.textContent = content.classList.contains('show') ? '▲' : '▼';
+            
+            // Track AGB view
+            if (content.classList.contains('show')) {
+                trackEvent('agb_viewed', {
+                    quote_id: quoteId,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+        
+        // Modal functions
+        function showModal(type) {
+            document.getElementById('modal-' + type).classList.add('show');
+        }
+        
+        function closeModal(type) {
+            document.getElementById('modal-' + type).classList.remove('show');
+        }
+    </script>
+</body>
+</html>
