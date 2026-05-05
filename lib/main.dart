@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/app_provider.dart';
+import 'screens/splash_screen.dart';
+import 'screens/login_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/requests_screen.dart';
 import 'screens/orders_screen.dart';
@@ -22,15 +24,67 @@ class CLEVOProApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AppProvider()..initialize()),
       ],
       child: MaterialApp(
-        title: 'CLEVO Pro',
+        title: 'CLEVO – Cleaning Business OS',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
-        home: const MainScreen(),
+        home: const AppEntryPoint(),
       ),
     );
   }
 }
 
+/// Steuert den Flow: Splash → Login → MainScreen
+class AppEntryPoint extends StatefulWidget {
+  const AppEntryPoint({super.key});
+
+  @override
+  State<AppEntryPoint> createState() => _AppEntryPointState();
+}
+
+class _AppEntryPointState extends State<AppEntryPoint> {
+  AppScreen _currentScreen = AppScreen.splash;
+
+  void _onSplashFinished() {
+    setState(() {
+      _currentScreen = AppScreen.login;
+    });
+  }
+
+  void _onLoginSuccess(String email, String password) {
+    // TODO: Firebase Auth implementieren
+    // Aktuell: Demo-Login (jeder Login akzeptiert)
+    setState(() {
+      _currentScreen = AppScreen.main;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      transitionBuilder: (child, animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+      child: switch (_currentScreen) {
+        AppScreen.splash => SplashScreen(
+            key: const ValueKey('splash'),
+            onFinished: _onSplashFinished,
+          ),
+        AppScreen.login => LoginScreen(
+            key: const ValueKey('login'),
+            onLogin: _onLoginSuccess,
+          ),
+        AppScreen.main => const MainScreen(
+            key: ValueKey('main'),
+          ),
+      },
+    );
+  }
+}
+
+enum AppScreen { splash, login, main }
+
+/// Haupt-App mit Bottom Navigation
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
